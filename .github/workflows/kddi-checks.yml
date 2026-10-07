@@ -1,0 +1,23 @@
+name: KDDI companion checks
+on:
+  push:
+    branches: [kddi-v0.8.4]
+  pull_request:
+    branches: [kddi-v0.8.4]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Offline Python and Worker regression tests
+        run: bash contrib/kddi/scripts/check.sh

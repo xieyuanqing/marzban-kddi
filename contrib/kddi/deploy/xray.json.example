@@ -1,0 +1,78 @@
+{
+  "log": {
+    "access": "/var/lib/marzban/access.pipe",
+    "error": "none",
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": "kddi-reality",
+      "listen": "REPLACE_WITH_ENTRY_IPV4",
+      "port": 24444,
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "REPLACE_WITH_SAME_ASN_SNI:443",
+          "xver": 0,
+          "serverNames": [
+            "REPLACE_WITH_SAME_ASN_SNI"
+          ],
+          "privateKey": "REPLACE_WITH_REALITY_PRIVATE_KEY",
+          "publicKey": "zozJ9tfE8pnsX8np1qJjPBAKee7tdSd8JDxuw3I9z00",
+          "shortIds": [
+            "REPLACE_WITH_REALITY_SHORT_ID"
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": {}
+    },
+    {
+      "tag": "kddi-ss",
+      "protocol": "shadowsocks",
+      "settings": {
+        "servers": [
+          {
+            "address": "REPLACE_WITH_LANDING_NAT_IPV4",
+            "port": 54324,
+            "method": "2022-blake3-aes-128-gcm",
+            "password": "REPLACE_WITH_SS2022_16_BYTE_BASE64_KEY"
+          }
+        ]
+      }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "kddi-reality"
+        ],
+        "network": "udp",
+        "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "kddi-reality"
+        ],
+        "network": "tcp",
+        "outboundTag": "kddi-ss"
+      }
+    ]
+  }
+}

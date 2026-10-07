@@ -1,0 +1,20 @@
+[Unit]
+Description=KDDI coupon per-user session guard and automatic destruction
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/kddi-coupons/session_guard.py
+Restart=on-failure
+RestartSec=2
+EnvironmentFile=/etc/kddi-coupon-guard.env
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+MemoryMax=128M
+CPUQuota=20%
+
+[Install]
+WantedBy=multi-user.target

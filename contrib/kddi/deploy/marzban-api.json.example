@@ -1,0 +1,7 @@
+{
+  "api_url": "http://127.0.0.1:18002",
+  "username": "REPLACE_WITH_DATABASE_ADMIN",
+  "password": "REPLACE_WITH_ADMIN_PASSWORD",
+  "public_url": "https://subscription.example.invalid",
+  "share_gateway_config": "/root/.secrets/auth/kddi-share.json"
+}

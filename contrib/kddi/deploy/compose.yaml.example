@@ -1,0 +1,19 @@
+services:
+  marzban:
+    image: gozargah/marzban@sha256:8e422c21997e5d2e3fa231eeff73c0a19193c20fc02fa4958e9368abb9623b8d
+    container_name: marzban-kddi
+    restart: unless-stopped
+    network_mode: host
+    env_file: .env
+    volumes:
+      - /var/lib/marzban-kddi:/var/lib/marzban
+      - ./xray.json:/code/xray-kddi.json:ro
+      - ./main.py:/code/main.py:ro
+    mem_limit: 512m
+    cpus: 0.50
+    pids_limit: 128
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"

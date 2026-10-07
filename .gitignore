@@ -160,3 +160,17 @@ xray-core
 *-dev.yml
 *-dev.yaml
 *-debug.*
+
+# KDDI fork: runtime identities and deployment data must remain local
+contrib/kddi/runtime/
+contrib/kddi/**/.env
+contrib/kddi/**/credentials.env
+contrib/kddi/**/config.json
+contrib/kddi/**/xray.json
+contrib/kddi/**/*.sqlite3*
+contrib/kddi/**/*.db*
+contrib/kddi/**/*.issued.jsonl
+contrib/kddi/**/coupon-batches/
+contrib/kddi/**/*.pem
+contrib/kddi/**/*.key
+node_modules/

@@ -1,0 +1,28 @@
+# Merge only this site into your own Caddyfile. Never replace other production sites.
+# Ordinary token-authenticated subscription GET/HEAD; administration stays loopback-only.
+subscription.example.invalid {
+    @subscription {
+        method GET HEAD
+        path_regexp subscription ^/sub/[A-Za-z0-9_.=-]{20,512}/?(clash-meta|clash|sing-box|v2ray|v2ray-json)?$
+    }
+    handle @subscription {
+        header {
+            Cache-Control "no-store, no-cache, private, max-age=0"
+            Pragma "no-cache"
+            Expires "0"
+            -Server
+        }
+        reverse_proxy 127.0.0.1:18002 {
+            method GET
+            header_up Accept application/octet-stream
+            header_down -support-url
+            header_down -profile-web-page-url
+            header_down -Server
+            header_down -X-Powered-By
+        }
+    }
+    handle {
+        respond 404
+    }
+    # Do not enable access logging of private subscription token paths.
+}

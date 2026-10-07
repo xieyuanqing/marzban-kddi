@@ -1,3 +1,7 @@
+> **KDDI deployment fork** — pinned to upstream **v0.8.4 / `7f396db3e703d71a28060bc9ce4a532ec64cb1f4`**, not upstream latest.
+> The application delta is `access_log=False` in `main.py`; companion coupon, share, session-guard, and egress-monitor code lives in [contrib/kddi](contrib/kddi/README.md).
+> Production uses the pinned official image plus a read-only `main.py` override. Secrets, subscription identities, and user databases are deliberately excluded. See the companion README for restore instructions and the private owner/unlimited plan distinction.
+
 <p align="center">
   <a href="https://github.com/gozargah/marzban" target="_blank" rel="noopener noreferrer">
     <picture>
